@@ -1,6 +1,8 @@
 package com.ContaBancoZup.projetoTeste.entities;
 
 import javax.persistence.*;
+import java.time.Instant;
+import java.time.LocalDate;
 
 @Entity
 @Table(name = "tb_dados_pessoais")
@@ -11,13 +13,14 @@ public class DadosPessoaisContaBancaria {
     private Long id;
     private String nome;
     private String email;
-    private Integer cpf;
-    private Integer dataNascimento;
+    @Column(unique = true)
+    private String cpf;
+    private String dataNascimento;
 
     public DadosPessoaisContaBancaria() {
     }
 
-    public DadosPessoaisContaBancaria(Long id, String nome, String email, Integer cpf, Integer dataNascimento) {
+    public DadosPessoaisContaBancaria(Long id, String nome, String email, String cpf, String dataNascimento) {
         this.id = id;
         this.nome = nome;
         this.email = email;
@@ -49,19 +52,19 @@ public class DadosPessoaisContaBancaria {
         this.email = email;
     }
 
-    public Integer getCpf() {
+    public String getCpf() {
         return cpf;
     }
 
-    public void setCpf(Integer cpf) {
+    public void setCpf(String cpf) {
         this.cpf = cpf;
     }
 
-    public Integer getDataNascimento() {
+    public String getDataNascimento() {
         return dataNascimento;
     }
 
-    public void setDataNascimento(Integer dataNascimento) {
+    public void setDataNascimento(String dataNascimento) {
         this.dataNascimento = dataNascimento;
     }
 }

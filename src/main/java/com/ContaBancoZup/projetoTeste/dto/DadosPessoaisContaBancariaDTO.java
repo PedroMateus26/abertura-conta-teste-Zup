@@ -2,20 +2,24 @@ package com.ContaBancoZup.projetoTeste.dto;
 
 import com.ContaBancoZup.projetoTeste.entities.DadosPessoaisContaBancaria;
 
+import javax.persistence.Column;
+import java.time.LocalDate;
+
 public class DadosPessoaisContaBancariaDTO {
     private Long id;
     private String nome;
     private String email;
-    private Integer cpf;
-    private Integer dataNascimento;
+    private String cpf;
+    private String dataNascimento;
 
     public DadosPessoaisContaBancariaDTO() {
     }
 
-    public DadosPessoaisContaBancariaDTO(Long id, String nome, String email, Integer cpf, Integer dataNascimento) {
+    public DadosPessoaisContaBancariaDTO(Long id, String nome, String email, String cpf, String dataNascimento) {
         this.id = id;
         this.nome = nome;
         this.email = email;
+
         this.cpf = cpf;
         this.dataNascimento = dataNascimento;
     }
@@ -52,19 +56,19 @@ public class DadosPessoaisContaBancariaDTO {
         this.email = email;
     }
 
-    public Integer getCpf() {
+    public String getCpf() {
         return cpf;
     }
 
-    public void setCpf(Integer cpf) {
+    public void setCpf(String cpf) {
         this.cpf = cpf;
     }
 
-    public Integer getDataNascimento() {
+    public String getDataNascimento() {
         return dataNascimento;
     }
 
-    public void setDataNascimento(Integer dataNascimento) {
+    public void setDataNascimento(String dataNascimento) {
         this.dataNascimento = dataNascimento;
     }
 }
