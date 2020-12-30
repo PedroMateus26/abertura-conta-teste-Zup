@@ -16,7 +16,8 @@ import java.time.Instant;
 public class ResourceExceptionHandler {
 
     @ExceptionHandler(DataIntegrityViolationException.class)
-    public ResponseEntity<ValidationError> validation(DataIntegrityViolationException e, HttpServletRequest request){
+    public ResponseEntity<ValidationError>
+    validation(DataIntegrityViolationException e, HttpServletRequest request){
         HttpStatus status = HttpStatus.UNPROCESSABLE_ENTITY;
         ValidationError err = new ValidationError();
         err.setTimestamp(Instant.now());

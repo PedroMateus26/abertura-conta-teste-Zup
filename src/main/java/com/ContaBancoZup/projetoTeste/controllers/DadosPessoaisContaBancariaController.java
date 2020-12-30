@@ -14,7 +14,7 @@ import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
 
-@RestController
+@RestController @CrossOrigin(origins = "http://localhost:3000")
 @RequestMapping(value = "/dados")
 public class DadosPessoaisContaBancariaController {
 

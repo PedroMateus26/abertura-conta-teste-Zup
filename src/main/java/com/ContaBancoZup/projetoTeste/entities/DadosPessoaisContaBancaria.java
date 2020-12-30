@@ -13,8 +13,10 @@ public class DadosPessoaisContaBancaria {
     private Long id;
     private String nome;
     private String email;
+
     @Column(unique = true)
     private String cpf;
+
     private String dataNascimento;
 
     public DadosPessoaisContaBancaria() {
