@@ -1,6 +1,7 @@
 package com.ContaBancoZup.projetoTeste.dto;
 
 import com.ContaBancoZup.projetoTeste.entities.DadosPessoaisContaBancaria;
+import com.ContaBancoZup.projetoTeste.services.exception.DadosBancariosValid;
 
 import javax.persistence.Column;
 import javax.validation.constraints.Email;
@@ -9,6 +10,7 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 
+@DadosBancariosValid
 public class DadosPessoaisContaBancariaDTO {
     private Long id;
     private String nome;

@@ -7,4 +7,9 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface DadosPessoaisContaBancariaRepository
         extends JpaRepository<DadosPessoaisContaBancaria,Long> {
+
+    DadosPessoaisContaBancaria findByEmail(String email);
+    DadosPessoaisContaBancaria findByCpf(String cpf);
+
+
 }
