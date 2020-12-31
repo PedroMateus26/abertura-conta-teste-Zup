@@ -2,7 +2,9 @@ package com.ContaBancoZup.projetoTeste.controllers.exceptions;
 
 import java.time.Instant;
 
-public class StandardError {
+public class StandardError{
+
+
     private Instant timestamp;
     private Integer status;
     private String error;
