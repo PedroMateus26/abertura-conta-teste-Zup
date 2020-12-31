@@ -3,12 +3,21 @@ package com.ContaBancoZup.projetoTeste.dto;
 import com.ContaBancoZup.projetoTeste.entities.DadosPessoaisContaBancaria;
 
 import javax.persistence.Column;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 
 public class DadosPessoaisContaBancariaDTO {
     private Long id;
     private String nome;
+
+    @Email(message = "Favor entrar com email válido")
+    @NotBlank(message = "Campo obrigatório")
     private String email;
+
+    @NotBlank(message = "Campo obrigatório")
     private String cpf;
     private String dataNascimento;
 
@@ -19,7 +28,6 @@ public class DadosPessoaisContaBancariaDTO {
         this.id = id;
         this.nome = nome;
         this.email = email;
-
         this.cpf = cpf;
         this.dataNascimento = dataNascimento;
     }

@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import ActionButton from "../core/components/ActionButton";
+import { ErrorData } from "../core/types/ErrorData";
 import { UserData } from "../core/types/UserData";
 import { makeRequest } from "../core/utils/request";
 import "./styles.css";
@@ -8,11 +9,12 @@ import "./styles.css";
 const DadosBancarios = () => {
   const [status, setStatus] = useState<number>(0);
   const [name, setName] = useState("");
+  const [erro, setErro] = useState<ErrorData>();
   const [cpf, setCpf] = useState("");
   const [email, setEmail] = useState("");
   const [dataNascimento, setDataNascimento] = useState("");
   const [userData, setUserData] = useState<UserData>();
- 
+
   const handleOnChangeName = (event: React.ChangeEvent<HTMLInputElement>) => {
     setName(event.target.value);
   };
@@ -28,7 +30,7 @@ const DadosBancarios = () => {
     setDataNascimento(event.target.value);
   };
 
-  const handleOnClick =  () => {
+  const handleOnClick = () => {
     setUserData({
       nome: name,
       email,
@@ -36,15 +38,33 @@ const DadosBancarios = () => {
       dataNascimento,
     });
 
-     makeRequest({ url: "dados", method: "POST", data: userData })
-      .then( (response) => [
+    axios.interceptors.response.use(
+      (res) => res,
+      (err) => {
+        const { error } = err.response.data;
+        const { errors } = err.response.data;
+        const { message } = err.response.data;
+        const { path } = err.response.data;
+        const { status } = err.response.data;
+        const { timestamp } = err.response.data;
+        setErro({
+          error,
+          errors,
+          message,
+          path,
+          status,
+          timestamp,
+        });
+      }
+    );
+
+    makeRequest({ url: "dados", method: "POST", data: userData })
+      .then((response) => [
         console.log(response.data, response.status),
         setStatus(response.status),
       ])
-      .catch(() => setStatus(422))
-      
+      .catch(() => setStatus(422));
   };
-
 
   return (
     <div>
@@ -80,8 +100,8 @@ const DadosBancarios = () => {
         />
         <ActionButton title="Salvar" onClick={handleOnClick} />
       </div>
-      {status==201&&<h1 className="return-message">created</h1>}
-      {status==422&&<h1 className="return-message">Error</h1>}
+      {status === 201 && <h1 className="return-message">created</h1>}
+      {status === 422 && <h1 className="return-message">Error:{erro?.error}</h1>}
     </div>
   );
 };
