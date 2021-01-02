@@ -12,12 +12,20 @@ public class DadosPessoaisContaBancaria {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String nome;
+
+    @Column(unique = true)
     private String email;
 
     @Column(unique = true)
     private String cpf;
 
+
     private String dataNascimento;
+    //Caso o desenvolvedor queira utilizar datas com valores de datas e não string
+    //Basta descomentar as duas linhas abaixo, comentar a data de nascimento acima
+    //Deve ser feito as mudanças necessárias nos get e set e nos contrutores
+    //@Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
+    //private LocalDate dataNascimento;
 
     public DadosPessoaisContaBancaria() {
     }

@@ -4,15 +4,15 @@ import com.ContaBancoZup.projetoTeste.entities.DadosPessoaisContaBancaria;
 import com.ContaBancoZup.projetoTeste.services.exception.DadosBancariosValid;
 
 import javax.persistence.Column;
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.*;
 import java.time.LocalDate;
 
 @DadosBancariosValid
 public class DadosPessoaisContaBancariaDTO {
     private Long id;
+
+    @Size(min = 5, max = 60, message = "O nome deve ter entre 5 e 60 caracteres")
+    @NotBlank(message = "Campo obrigatório")
     private String nome;
 
     @Email(message = "Favor entrar com email válido")
@@ -21,7 +21,14 @@ public class DadosPessoaisContaBancariaDTO {
 
     @NotBlank(message = "Campo cpf obrigatório")
     private String cpf;
+
     private String dataNascimento;
+    //Caso o desenvolvedor queira utilizar datas com valores de datas e não string
+    //Basta descomentar as duas linhas abaixo, comentar a data de nascimento acima
+    //Deve ser feito as mudanças necessárias nos get e set e nos contrutores
+    //@PastOrPresent(message = "A data do produto não pode ser futura")
+    //private LocalDate dataNascimento;
+
 
     public DadosPessoaisContaBancariaDTO() {
     }
