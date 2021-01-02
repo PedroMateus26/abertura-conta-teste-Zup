@@ -16,10 +16,10 @@ public class DadosPessoaisContaBancariaDTO {
     private String nome;
 
     @Email(message = "Favor entrar com email válido")
-    @NotBlank(message = "Campo obrigatório")
+    @NotBlank(message = "Campo email obrigatório")
     private String email;
 
-    @NotBlank(message = "Campo obrigatório")
+    @NotBlank(message = "Campo cpf obrigatório")
     private String cpf;
     private String dataNascimento;
 

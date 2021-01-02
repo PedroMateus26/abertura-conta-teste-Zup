@@ -1,5 +1,7 @@
 import axios from "axios";
+import { stat } from "fs";
 import React, { useEffect, useState } from "react";
+import { Map } from "typescript";
 import ActionButton from "../core/components/ActionButton";
 import { ErrorData } from "../core/types/ErrorData";
 import { UserData } from "../core/types/UserData";
@@ -9,11 +11,12 @@ import "./styles.css";
 const DadosBancarios = () => {
   const [status, setStatus] = useState<number>(0);
   const [name, setName] = useState("");
-  const [erro, setErro] = useState<ErrorData>();
+  const [erro, setErro] = useState<string[]>();
   const [cpf, setCpf] = useState("");
   const [email, setEmail] = useState("");
   const [dataNascimento, setDataNascimento] = useState("");
   const [userData, setUserData] = useState<UserData>();
+  let listError: string[] = [];
 
   const handleOnChangeName = (event: React.ChangeEvent<HTMLInputElement>) => {
     setName(event.target.value);
@@ -38,32 +41,26 @@ const DadosBancarios = () => {
       dataNascimento,
     });
 
-    axios.interceptors.response.use(
-      (res) => res,
-      (err) => {
-        const { error } = err.response.data;
-        const { errors } = err.response.data;
-        const { message } = err.response.data;
-        const { path } = err.response.data;
-        const { status } = err.response.data;
-        const { timestamp } = err.response.data;
-        setErro({
-          error,
-          errors,
-          message,
-          path,
-          status,
-          timestamp,
-        });
-      }
-    );
-
     makeRequest({ url: "dados", method: "POST", data: userData })
       .then((response) => [
         console.log(response.data, response.status),
         setStatus(response.status),
       ])
-      .catch(() => setStatus(422));
+      .catch((err) => {
+        const { errors } = err.response.data; //Pega a lista de erro
+        listError = [];
+        if (errors !== undefined) {
+          for (const { message } of errors) {
+            //extrai mensagem de erro de dentro de cada elemento da lista
+            listError.push(message);
+          }
+          setStatus(422);
+          setErro(listError);
+        }
+      });
+    if (status === 422) {
+      console.log(erro);
+    }
   };
 
   return (
@@ -100,8 +97,8 @@ const DadosBancarios = () => {
         />
         <ActionButton title="Salvar" onClick={handleOnClick} />
       </div>
-      {status === 201 && <h1 className="return-message">created</h1>}
-      {status === 422 && <h1 className="return-message">Error:{erro?.error}</h1>}
+      {status === 201 && <h1 className="return-message">Usuário criado com sucesso</h1>}
+      {status === 422 && erro?.map((elem) => <h2 key={elem} className="return-message">Erro: {elem}</h2>)}
     </div>
   );
 };
